@@ -1,8 +1,7 @@
 version: "3.8"
-name: maci-generative-api
 services:
   database:
-    # Cambiar a cualquier nombre para cada proyecto. 
+    # Cambiar a cualquier nombre para cada proyecto.
     container_name: ls-database-maci-generative-api
     image: postgis/postgis:13-master
     restart: always
@@ -13,13 +12,13 @@ services:
     networks:
       - directus
     ports:
-      # output:input para que puedan acceder desde fuera del contenedor en un puerto personalizado 
+      # output:input para que puedan acceder desde fuera del contenedor en un puerto personalizado
       - 5489:5432
     environment:
       POSTGRES_USER: "directus"
       POSTGRES_PASSWORD: "directus"
       POSTGRES_DB: "directus"
-  
+
   # cache:
   #   image: redis:6
   #   networks:
@@ -44,7 +43,7 @@ services:
       - database
       - chroma
     environment:
-      CHOKIDAR_USEPOLLING: true
+      CHOKIDAR_USEPOLLING: "true"
       # Reemplazar key y value cuando quieran llevar a producción. Es colocar cadenas con el mismo patrón, para no comprometer su hash
       KEY: "355d861b-5ea1-5996-9aa3-922530ec40b2"
       SECRET: "7116487b-cda1-52c2-b5b5-c8022c45e264"
@@ -71,7 +70,7 @@ services:
 
       # Esto es muy importante tenerlo activo en desarrollo, para que vean los cambios en la medida que hacen modificaciones en el código
       EXTENSIONS_AUTO_RELOAD: "true"
-     
+
   chroma:
     image: ghcr.io/chroma-core/chroma:latest
     restart: always
@@ -92,3 +91,4 @@ networks:
 volumes:
   chroma-data:
     driver: local
+
